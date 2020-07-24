@@ -70,10 +70,10 @@ for fn,chunks in file_chunks.items():
                      str(chunk_end),  base_url + fn, '--output', chunk_fn]
         print('Starting: ' + ' '.join(curl_args))
         res = subprocess.Popen(curl_args)
-        subprocs.append(res)
+        subprocs.append((res, ' '.join(curl_args)))
         chunk_fns.append(chunk_fn)
-    for sub in subprocs:        
-        print('Waiting on: ' + ' '.join(curl_args))
+    for sub,args in subprocs:        
+        print('Waiting on: ' + args)
         ret = sub.wait()
         assert ret == 0            
     catted = output_dir + fn
@@ -97,6 +97,7 @@ for fn,chunks in file_chunks.items():
         computed_hash_code = str(res.stdout, 'utf-8').split(' ')[0]
         if computed_hash_code != hash_code:
             print('ERROR! hash code does not match for fn ' + catted)
+            assert False
         else:
             print('SUCCESS! hash code matches for fn ' + catted)
         
