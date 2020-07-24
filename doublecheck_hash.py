@@ -2,7 +2,7 @@
 import sys
 import subprocess
 
-output_dir = sys.argv[1].strip()
+base_dir = sys.argv[1].strip()
 file_list = sys.argv[2]
 
 threads = []
@@ -23,7 +23,7 @@ for line in file_list_fd:
         fn = spl[0].strip()
     else:
         assert False # bad format
-    catted = output_dir + fn
+    catted = base_dir + fn
     if hash_code:
         if hash_type.lower() == 'md5':            
             hash_code_args = ['md5sum', catted]
