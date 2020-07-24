@@ -6,15 +6,17 @@ output = sys.argv[3]
 ofd = open(output, 'w')
 md5s = {}
 fd = open(md5list_0, 'r')
+# okay it is missing the file from the name
 for md5 in fd:
-    md5 = md5.split(' ')
+    md5 = md5.strip().split()
     md5s[md5[1]] = md5[0]
 fd.close()
 fd = open(md5list_1, 'r')
 for md5 in fd:
-    md5 = md5.split(' ')
+    md5 = md5.strip().split()
     fn = md5[1]
     md5 = md5[0]
+    
     if md5 != md5s[fn]:
         ofd.write(fn)
 ofd.flush()
