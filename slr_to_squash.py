@@ -5,6 +5,7 @@
 import sys
 import os
 import subprocess
+import shutil
 
 slr_base = sys.argv[1] # where the SLR subdirs are located. should end in '/'
 slr_dirs = sys.argv[2] # list something like 61/, 62/, etc. Assumes the structure is slr_base/slr_dir
@@ -19,7 +20,7 @@ slr_dir_fd.close()
 
 for d in full_slr_dirs:
     files = os.listdir(d)
-    files = [f for f in files if os.path.isfile(d + '/' + f)]
+    files = [f for f in files if os.path.isfile(d + '/' + f) and f.split('.')[-1] != 'sqfs']
     to_squash = []
     deletable = []
     for f in files:
@@ -39,4 +40,8 @@ for d in full_slr_dirs:
     if delete_files:
         for s in deletable:
             print('deleting: ' + s)
-            os.remove(s)
+            if os.path.exists(s):
+                if os.path.isfile(s):
+                    os.remove(s)
+                else:
+                    shutil.rmtree(s)
