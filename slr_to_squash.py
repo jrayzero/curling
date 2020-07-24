@@ -9,7 +9,11 @@ import shutil
 
 slr_base = sys.argv[1] # where the SLR subdirs are located. should end in '/'
 slr_dirs = sys.argv[2] # list something like 61/, 62/, etc. Assumes the structure is slr_base/slr_dir
-delete_files = bool(sys.argv[3])
+delete_files = sys.argv[3]
+if delete_files.lower() == 'true':
+    delete_files = True
+else:
+    delete_files = False
 
 assert slr_base[-1] == '/'
 

@@ -9,7 +9,11 @@ base_dir = sys.argv[1].strip()
 file_list = sys.argv[2]
 squash_dir = sys.argv[3]
 if len(sys.argv) == 5:
-    delete_tar = bool(sys.argv[4])
+    delete_tar = sys.argv[4]
+    if delete_tar.lower() == 'true':
+        delete_tar = True
+    else:
+        delete_tar = False
 else:
     delete_tar = False
 
