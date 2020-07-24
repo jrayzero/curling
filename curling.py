@@ -65,7 +65,7 @@ for fn,chunks in file_chunks.items():
     chunk_fns = []
     subprocs = []
     for idx,(chunk_start,chunk_end) in enumerate(chunks):
-        chunk_fn = output_dir + 'chunk_' + str(idx) + '.partial'
+        chunk_fn = output_dir + fn + '.chunk_' + str(idx) + '.partial'
         curl_args = ['curl', '--range', str(chunk_start) + '-' +
                      str(chunk_end),  base_url + fn, '--output', chunk_fn]
         print('Starting: ' + ' '.join(curl_args))
